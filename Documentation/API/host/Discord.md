@@ -204,7 +204,7 @@ Replaced value:
 ```sqf
 5
 ```
-File: [host\Discord\Discord.sqf at line 18](../../../Src/host/Discord/Discord.sqf#L18)
+File: [host\Discord\Discord.sqf at line 19](../../../Src/host/Discord/Discord.sqf#L19)
 ## discord_reset_stackcount()
 
 Type: constant
@@ -218,7 +218,7 @@ Replaced value:
 ```sqf
 disc_messagesLeftPerSec = DISCORD_MAX_MESSAGES_COUNT_PERDELAY
 ```
-File: [host\Discord\Discord.sqf at line 23](../../../Src/host/Discord/Discord.sqf#L23)
+File: [host\Discord\Discord.sqf at line 24](../../../Src/host/Discord/Discord.sqf#L24)
 ## DISCORD_UPDATE_DELAY
 
 Type: constant
@@ -232,7 +232,7 @@ Replaced value:
 ```sqf
 5.001
 ```
-File: [host\Discord\Discord.sqf at line 26](../../../Src/host/Discord/Discord.sqf#L26)
+File: [host\Discord\Discord.sqf at line 27](../../../Src/host/Discord/Discord.sqf#L27)
 ## disc_stack_logger
 
 Type: Variable
@@ -246,7 +246,7 @@ Initial value:
 ```sqf
 []
 ```
-File: [host\Discord\Discord.sqf at line 20](../../../Src/host/Discord/Discord.sqf#L20)
+File: [host\Discord\Discord.sqf at line 21](../../../Src/host/Discord/Discord.sqf#L21)
 ## disc_lastLoggerTime
 
 Type: Variable
@@ -258,7 +258,7 @@ Initial value:
 ```sqf
 tickTime
 ```
-File: [host\Discord\Discord.sqf at line 21](../../../Src/host/Discord/Discord.sqf#L21)
+File: [host\Discord\Discord.sqf at line 22](../../../Src/host/Discord/Discord.sqf#L22)
 ## disc_messagesLeftPerSec
 
 Type: Variable
@@ -270,7 +270,7 @@ Initial value:
 ```sqf
 DISCORD_MAX_MESSAGES_COUNT_PERDELAY
 ```
-File: [host\Discord\Discord.sqf at line 22](../../../Src/host/Discord/Discord.sqf#L22)
+File: [host\Discord\Discord.sqf at line 23](../../../Src/host/Discord/Discord.sqf#L23)
 ## disc_handle_update
 
 Type: Variable
@@ -282,7 +282,7 @@ Initial value:
 ```sqf
 -1
 ```
-File: [host\Discord\Discord.sqf at line 24](../../../Src/host/Discord/Discord.sqf#L24)
+File: [host\Discord\Discord.sqf at line 25](../../../Src/host/Discord/Discord.sqf#L25)
 ## disc_token_admin
 
 Type: Variable
@@ -294,7 +294,7 @@ Initial value:
 ```sqf
 "Admin"
 ```
-File: [host\Discord\Discord.sqf at line 30](../../../Src/host/Discord/Discord.sqf#L30)
+File: [host\Discord\Discord.sqf at line 31](../../../Src/host/Discord/Discord.sqf#L31)
 ## disc_token_logger
 
 Type: Variable
@@ -306,7 +306,7 @@ Initial value:
 ```sqf
 "Logger"
 ```
-File: [host\Discord\Discord.sqf at line 31](../../../Src/host/Discord/Discord.sqf#L31)
+File: [host\Discord\Discord.sqf at line 32](../../../Src/host/Discord/Discord.sqf#L32)
 ## disc_icon_logger
 
 Type: Variable
@@ -318,7 +318,7 @@ Initial value:
 ```sqf
 "https://flammlin.com/wp-content/uploads/2020/03/logfile_file.png"
 ```
-File: [host\Discord\Discord.sqf at line 32](../../../Src/host/Discord/Discord.sqf#L32)
+File: [host\Discord\Discord.sqf at line 33](../../../Src/host/Discord/Discord.sqf#L33)
 ## disc_icon_serverNotif
 
 Type: Variable
@@ -330,7 +330,7 @@ Initial value:
 ```sqf
 "https://cdn.discordapp.com/emojis/467665814540124170.png?v=1"
 ```
-File: [host\Discord\Discord.sqf at line 40](../../../Src/host/Discord/Discord.sqf#L40)
+File: [host\Discord\Discord.sqf at line 41](../../../Src/host/Discord/Discord.sqf#L41)
 ## disc_handle_update
 
 Type: Variable
@@ -344,7 +344,7 @@ Initial value:
 ```sqf
 startUpdate(disc_onUpdate,DISCORD_UPDATE_DELAY)
 ```
-File: [host\Discord\Discord.sqf at line 71](../../../Src/host/Discord/Discord.sqf#L71)
+File: [host\Discord\Discord.sqf at line 72](../../../Src/host/Discord/Discord.sqf#L72)
 ## disc_onUpdate
 
 Type: function
@@ -354,7 +354,7 @@ Type: function
 Description: 
 
 
-File: [host\Discord\Discord.sqf at line 43](../../../Src/host/Discord/Discord.sqf#L43)
+File: [host\Discord\Discord.sqf at line 44](../../../Src/host/Discord/Discord.sqf#L44)
 ## DiscordEmbedBuilder_fnc_buildSqf
 
 Type: function
@@ -366,7 +366,7 @@ Description:
 - Param: _ico
 - Param: _flg
 
-File: [host\Discord\Discord.sqf at line 76](../../../Src/host/Discord/Discord.sqf#L76)
+File: [host\Discord\Discord.sqf at line 77](../../../Src/host/Discord/Discord.sqf#L77)
 ## disc_logger_provider
 
 Type: function
@@ -374,7 +374,7 @@ Type: function
 Description: 
 - Param: _message
 
-File: [host\Discord\Discord.sqf at line 84](../../../Src/host/Discord/Discord.sqf#L84)
+File: [host\Discord\Discord.sqf at line 85](../../../Src/host/Discord/Discord.sqf#L85)
 ## disc_adminlog_provider
 
 Type: function
@@ -382,7 +382,7 @@ Type: function
 Description: 
 - Param: _message
 
-File: [host\Discord\Discord.sqf at line 112](../../../Src/host/Discord/Discord.sqf#L112)
+File: [host\Discord\Discord.sqf at line 113](../../../Src/host/Discord/Discord.sqf#L113)
 ## discLog
 
 Type: function
@@ -390,7 +390,7 @@ Type: function
 Description: 
 - Param: _message
 
-File: [host\Discord\Discord.sqf at line 123](../../../Src/host/Discord/Discord.sqf#L123)
+File: [host\Discord\Discord.sqf at line 124](../../../Src/host/Discord/Discord.sqf#L124)
 ## discError
 
 Type: function
@@ -398,7 +398,7 @@ Type: function
 Description: 
 - Param: _message
 
-File: [host\Discord\Discord.sqf at line 129](../../../Src/host/Discord/Discord.sqf#L129)
+File: [host\Discord\Discord.sqf at line 130](../../../Src/host/Discord/Discord.sqf#L130)
 ## discWarning
 
 Type: function
@@ -406,7 +406,7 @@ Type: function
 Description: 
 - Param: _message
 
-File: [host\Discord\Discord.sqf at line 135](../../../Src/host/Discord/Discord.sqf#L135)
+File: [host\Discord\Discord.sqf at line 136](../../../Src/host/Discord/Discord.sqf#L136)
 ## discServerNotif
 
 Type: function
@@ -416,7 +416,7 @@ Description:
 - Param: _header (optional, default "Оповещение")
 - Param: _preMessage (optional, default "")
 
-File: [host\Discord\Discord.sqf at line 141](../../../Src/host/Discord/Discord.sqf#L141)
+File: [host\Discord\Discord.sqf at line 142](../../../Src/host/Discord/Discord.sqf#L142)
 ## discUserLog
 
 Type: function
@@ -425,7 +425,7 @@ Description:
 - Param: _message
 - Param: _name
 
-File: [host\Discord\Discord.sqf at line 161](../../../Src/host/Discord/Discord.sqf#L161)
+File: [host\Discord\Discord.sqf at line 162](../../../Src/host/Discord/Discord.sqf#L162)
 ## DiscordEmbedBuilder_fnc_buildSqf
 
 Type: function
@@ -439,7 +439,7 @@ Description:
 - Param: _ico
 - Param: _flg
 
-File: [host\Discord\Discord.sqf at line 168](../../../Src/host/Discord/Discord.sqf#L168)
+File: [host\Discord\Discord.sqf at line 169](../../../Src/host/Discord/Discord.sqf#L169)
 # ServerManager.sqf
 
 ## DSM_CALLBACKNAME
@@ -529,7 +529,7 @@ Initial value:
 ```sqf
 nullPtr
 ```
-File: [host\Discord\ServerManager.sqf at line 189](../../../Src/host/Discord/ServerManager.sqf#L189)
+File: [host\Discord\ServerManager.sqf at line 201](../../../Src/host/Discord/ServerManager.sqf#L201)
 ## dsm_stdCall
 
 Type: function
@@ -613,7 +613,7 @@ Type: function
 Description: 
 
 
-File: [host\Discord\ServerManager.sqf at line 182](../../../Src/host/Discord/ServerManager.sqf#L182)
+File: [host\Discord\ServerManager.sqf at line 194](../../../Src/host/Discord/ServerManager.sqf#L194)
 ## dsm_callServerCommand
 
 Type: function
@@ -622,4 +622,4 @@ Description:
 - Param: _cmd
 - Param: _executorName
 
-File: [host\Discord\ServerManager.sqf at line 191](../../../Src/host/Discord/ServerManager.sqf#L191)
+File: [host\Discord\ServerManager.sqf at line 203](../../../Src/host/Discord/ServerManager.sqf#L203)

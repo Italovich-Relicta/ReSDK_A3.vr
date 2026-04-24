@@ -181,6 +181,18 @@ Replaced value:
 60*3 + 30
 ```
 File: [host\ClientManager\ClientManager.h at line 13](../../../Src/host/ClientManager/ClientManager.h#L13)
+## TIME_TO_VALIDATE_CLIENT
+
+Type: constant
+
+Description: time for access validation of clients without account
+
+
+Replaced value:
+```sqf
+15
+```
+File: [host\ClientManager\ClientManager.h at line 16](../../../Src/host/ClientManager/ClientManager.h#L16)
 # ClientManager.sqf
 
 ## client_handler_onConnect
