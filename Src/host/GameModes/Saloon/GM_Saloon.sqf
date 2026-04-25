@@ -714,11 +714,7 @@ class(GMSaloonV2) extends(GMBase)
 		getSelf(taskList) deleteAt (getSelf(taskList) find "Saloon_Task_KillV2");
 		#endif
 
-		private _taskClass = if (!isNil "gm_saloon_forcedTask" && {gm_saloon_forcedTask != ""}) then {
-			gm_saloon_forcedTask
-		} else {
-			pick getSelf(taskList)
-		};
+		private _taskClass = ifcheck(isNull(gm_saloon_forcedTask) && {gm_saloon_forcedTask != ""},gm_saloon_forcedTask,pick getSelf(taskList));
 		setSelf(task,instantiate(_taskClass));
 		
 		{
