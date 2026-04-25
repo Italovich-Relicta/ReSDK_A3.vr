@@ -293,3 +293,32 @@ addCommandWithDescription("ai_spawn",ACCESS_ADMIN,"Спавнит АИ в сле
 
 	callFuncParams(thisClient,localSay,"АИ создан" arg "system");
 };
+
+addCommandWithDescription("saloontask",ACCESS_ADMIN,"Установить задачу для Злачника до старта раунда. Аргумент - имя задачи: portfel, docs, kill, roof. Без аргумента - сброс (случайная задача). Работает до запуска режима.")
+{
+	private _taskMap = createHashMapFromArray [
+		["portfel", "Saloon_Task_PortfelV2"],
+		["docs",    "Saloon_Task_DocsV2"],
+		["kill",    "Saloon_Task_KillV2"],
+		["roof",    "Saloon_Task_RoofV2"]
+	];
+
+	if (args == "") then {
+		gm_saloon_forcedTask = "";
+		callFuncParams(thisClient,localSay,"Принудительная задача сброшена - будет выбрана случайная" arg "log");
+	} else {
+		private _taskClass = _taskMap getOrDefault [toLower args, ""];
+		if (_taskClass == "") then {
+			private _errMsg = format["Неизвестная задача '%1'. Доступные: portfel, docs, kill, roof", args];
+			callFuncParams(thisClient,localSay,_errMsg arg "error");
+		} else {
+			gm_saloon_forcedTask = _taskClass;
+			private _okMsg = format["Задача установлена: %1", _taskClass];
+			callFuncParams(thisClient,localSay,_okMsg arg "log");
+		};
+	};
+
+	private _ft = format["%1 set saloontask to '%2'",getVar(thisClient,name),args];
+	["ADMIN_GAME: "+_ft] call adminLog;
+	["ADMIN_GAME: "+_ft] call disc_adminlog_provider;
+};

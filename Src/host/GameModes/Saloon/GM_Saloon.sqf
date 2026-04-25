@@ -713,10 +713,13 @@ class(GMSaloonV2) extends(GMBase)
 		#ifdef EDITOR
 		getSelf(taskList) deleteAt (getSelf(taskList) find "Saloon_Task_KillV2");
 		#endif
-		
-		private _task = pick getSelf(taskList);
-		_task = instantiate(_task);
-		setSelf(task,_task);
+
+		private _taskClass = if (!isNil "gm_saloon_forcedTask" && {gm_saloon_forcedTask != ""}) then {
+			gm_saloon_forcedTask
+		} else {
+			pick getSelf(taskList)
+		};
+		setSelf(task,instantiate(_taskClass));
 		
 		{
 			if (getVar(_x,name) == "Защитная стена") then {
@@ -1066,15 +1069,6 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 		setSelf(banditMainClueText,_banditMainText);
 		setSelf(barmenClueText,_barmenText);
 
-		if !isNullReference(_banditMainStash) then {
-			setVar(_banditMainStash,name,"Деревянная коробка");
-			setVar(_banditMainStash,desc,"Крупная и пахнет странно");
-		};
-		if !isNullReference(_barmenStash) then {
-			setVar(_barmenStash,name,"Деревянная коробка");
-			setVar(_barmenStash,desc,"Крупная и пахнет странно");
-		};
-
 		if !isNullReference(_banditMainMob) then {
 			private _msgBanditMain = format[
 				"<t color='#FFB347'>За прошлую смену группировка задолжала %1 звяков ополченцам за крышу. Уже в эту смену ополченцы будут разыскивать нас и любой ценой добьются своего, ведь нам не раз удавалось с ними 'договориться' и избежать ответственности за все прошлые проступки... Долговой схрон: %2. Нужно где-то раздобыть звяки и отнести в положенное место. Ведь мы хотим дальше заниматься вседозволенным и прикрываться законом.</t>",
@@ -1115,14 +1109,15 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 		private _finishCode = getSelf(finishCode);
 		if (_finishCode != 0) exitWith {_finishCode};
 
-		private _banditMainMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBanditMainSaloon");
-		private _barmenMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBarmenSaloon");
+		private _banditMainMob = getSelf(banditMainMob);
+		private _barmenMob = getSelf(barmenMob);
 
+		private _timeGatePassed = gm_roundDuration >= 3600;
 		private _banditMainDead = !isNullReference(_banditMainMob) && {getVar(_banditMainMob,isDead)};
 		private _barmenDead = !isNullReference(_barmenMob) && {getVar(_barmenMob,isDead)};
-		if (_banditMainDead && _barmenDead) exitWith {-3};
-		if (_barmenDead) exitWith {1};
-		if (_banditMainDead) exitWith {2};
+		if (_timeGatePassed && _banditMainDead && _barmenDead) exitWith {-3};
+		if (_timeGatePassed && _barmenDead) exitWith {1};
+		if (_timeGatePassed && _banditMainDead) exitWith {2};
 
 		if (!isNullReference(_barmenMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_barmenMob)}) exitWith {3};
 		if (!isNullReference(_banditMainMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_banditMainMob)}) exitWith {4};
