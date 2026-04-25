@@ -948,7 +948,7 @@ class(GMSaloonV2) extends(GMBase)
 	{
 		objParams_1(_mob);
 		if isNullReference(_mob) exitWith {false};
-		(callFunc(_mob,getPos)) inArea [[3362.780,3654.742,33.725],4.6,2.2,0,true,-1];
+		(callFunc(_mob,getPos)) inArea [[3362.780,3654.742,33.725],4.6,2.2,0,true,5];
 	};
 	
 	func(checkFinish)
