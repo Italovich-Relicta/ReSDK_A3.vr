@@ -37,6 +37,7 @@ class(GMPrey) extends(GMBase)
 	getterconst_func(getLocationDisplayName,"Где-то в пещерах");
 	var(duration,60 * 60); //1 hr
 	getter_func(isVoteSystemEnabled,false);
+	getterconst_func(isVotable,false);
 	getterconst_func(getMapName,""); //dymaic creation
 	getterconst_func(getLobbySoundName,"lobby\Endless_Deep.ogg");
 	//getterconst_func(getLobbyBackground,PATH_PICTURE("lobby\lobbyrats.paa"));

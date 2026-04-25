@@ -688,12 +688,34 @@ class(RSBSComannderSaloon) extends(BasicRoleSaloon)
 		private _mes = "<t size='1.4' color='#F60018' font='Ringbear'>Поступил вызов - бар Дыра. Собрать бойцов, снарядить их и выдвинуться на место.</t>";
 		callFuncParams(_mob,addFirstJoinMessage,_mes);
 		setVar(gm_currentMode,isSBSCommandirSpawned,true);
+
+		private _task = getVar(gm_currentMode,task);
+		if (isTypeOf(_task,Saloon_Task_RoofV2) && {!getVar(_task,militiaBriefSent)}) then {
+			private _roofMes = format[
+				"<t color='#F6D365'>В последние смены группировка 'Рука' и барник из 'Дыры' всё реже платят крышу за собственные проделки. У одних несчетное количество преступлений, на которые мы до этой смены закрывали глаза, у другого алкоголь не пойми откуда, да и ещё и продаёт он его направо и налево всем забулдыгам по звяку за бутылку... Сам что ли гонит? Надо бы проверить наши схроны на наличие звяк. Должно быть по %1 звяков. Схрон Пахана: %2 Схрон Барника: %3. Тот кто положит больше - останется безнаказанным до следующей смены, а вот с должников надо бы спросить. Да ещё и вызов поступил. Проверим схроны и сходим разберёмся?</t>",
+				getVar(_task,debtValue),
+				getVar(_task,banditMainClueText),
+				getVar(_task,barmenClueText)
+			];
+			callFuncParams(_mob,addFirstJoinMessage,_roofMes);
+			setVar(_task,militiaBriefSent,true);
+		};
 		
 		{
 			delete(_x);
 		} foreach getVar(gm_currentMode,protectedWalls);
 	};
 	
+	func(onDead)
+	{
+		objParams_2(_mob,_usr);
+		super();
+		private _task = getVar(gm_currentMode,task);
+		if isTypeOf(_task,Saloon_Task_RoofV2) then {
+			callFuncParams(_task,requestFinish,-1);
+		};
+	};
+
 	getter_func(canTakeInLobby,false);
 	getter_func(canVisibleAfterStart,getVar(gm_currentMode,deadMobs) > 0); //если есть хотя-бы 1 смерть
 
@@ -754,7 +776,18 @@ class(RSBSRookieSaloon) extends(BasicRoleSaloon)
 		["CombatHat",_mob,INV_HEAD] call createItemInInventory;
 		["ShortSword",_mob,INV_BELT] call createItemInInventory;
 	};
-	
+
+	func(onAssigned)
+	{
+		objParams_2(_mob,_usr);
+		super();
+		private _task = getVar(gm_currentMode,task);
+		if isTypeOf(_task,Saloon_Task_RoofV2) then {
+			private _mes = "<t color='#F6D365'>Поступил вызов - произошло убийство в баре 'Дыра'. Надо бы разобраться. В прошлую смену начальник ополчения говорил о какой то крыше. Мол пахан из 'Руки' и барник что-то кому-то задолжали. Надо бы у него спросить что за дела в первую очередь.</t>";
+			callFuncParams(_mob,addFirstJoinMessage,_mes);
+		};
+	};
+
 	getter_func(canTakeInLobby,false);
 	getter_func(canVisibleAfterStart,getVar(gm_currentMode,isSBSCommandirSpawned));
 

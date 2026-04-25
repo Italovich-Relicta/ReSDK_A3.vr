@@ -702,7 +702,7 @@ class(GMSaloonV2) extends(GMBase)
 	
 	var(task,nullPtr);
 	//var(taskList,["Saloon_Task_PortfelV2"]);
-	var(taskList,["Saloon_Task_PortfelV2" arg "Saloon_Task_DocsV2" arg "Saloon_Task_KillV2"]);
+	var(taskList,["Saloon_Task_PortfelV2" arg "Saloon_Task_DocsV2" arg "Saloon_Task_KillV2" arg "Saloon_Task_RoofV2"]);
 
 	var(protectedWalls,[]);//защитные стены убираются когда спавнится командир охров
 	var(countDoors,0);
@@ -904,6 +904,52 @@ class(GMSaloonV2) extends(GMBase)
 		//["2floor","1floor"] select ((getPosATL player) select 2 <= 23
 		getVar(getSelf(cages) select (_pos select 2 <= 31.9),isLocked)
 	};
+
+	func(getRoofMoneyValue)
+	{
+		objParams_1(_moneyObj);
+		if !isTypeOf(_moneyObj,Money) exitWith {0};
+		private _stackCount = getVar(_moneyObj,stackCount);
+		if isTypeOf(_moneyObj,Bryak) exitWith {_stackCount * 10};
+		_stackCount
+	};
+
+	func(collectRoofStartMoneyValue)
+	{
+		objParams();
+		private _total = 0;
+		{
+			modVar(_total,+ callSelfParams(getRoofMoneyValue,_x));
+		} foreach (["Money",true] call getAllItemsTypeOf);
+		_total
+	};
+
+	func(getRoofRoleMob)
+	{
+		objParams_1(_roleName);
+		private _roleObj = _roleName call gm_getRoleObject;
+		private _mobList = getVar(_roleObj,basicMobs);
+		private _roleMob = nullPtr;
+		if (count _mobList > 0) then {
+			_roleMob = _mobList select 0;
+		};
+		if !isNullReference(_roleMob) exitWith {_roleMob};
+
+		{
+			private _linkedMob = _x getVariable ["link" arg nullPtr];
+			if (!isNullReference(_linkedMob) && {equals(getVar(_linkedMob,basicRole),_roleObj)}) exitWith {
+				_roleMob = _linkedMob;
+			};
+		} foreach cm_allInGameMobs;
+		_roleMob
+	};
+
+	func(isMobInSBSCageArea)
+	{
+		objParams_1(_mob);
+		if isNullReference(_mob) exitWith {false};
+		(callFunc(_mob,getPos)) inArea [[3362.780,3654.742,33.725],4.6,2.2,0,true,-1];
+	};
 	
 	func(checkFinish)
 	{
@@ -972,6 +1018,133 @@ class(Saloon_Task_BaseV2) extends(IGamemodeSpecificClass)
 	};
 endclass
 
+
+
+class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
+	var(debtValue,0);
+	var(banditMainMob,nullPtr);
+	var(barmenMob,nullPtr);
+	var(banditMainStash,nullPtr);
+	var(barmenStash,nullPtr);
+	var(banditMainClueText,"");
+	var(barmenClueText,"");
+	var(militiaBriefSent,false);
+	var(finishCode,0);
+
+	func(onTaskInit)
+	{
+		objParams();
+
+		private _banditMainMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBanditMainSaloon");
+		private _barmenMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBarmenSaloon");
+		setSelf(banditMainMob,_banditMainMob);
+		setSelf(barmenMob,_barmenMob);
+
+		private _totalValue = callFunc(gm_currentMode,collectRoofStartMoneyValue);
+		private _debtValue = floor(_totalValue * 0.4);
+		if (_debtValue <= 0) then {_debtValue = 25};
+		setSelf(debtValue,_debtValue);
+
+		private _stashPoints = [
+			[vec3(3463.77,3589.05,25) arg 15 arg "Схрон в железном сарае. Если смотреть на входную дверь бара, надо направляться направо, сарай находится в конце улицы."] arg
+			[vec3(3408,3684.39,25) arg 182 arg "Недалеко от горящей бочки, на углу двора. Надо перешагнуть через лестницу справа от бочки."] arg
+			[vec3(3427.48,3631.08,29.6) arg 12 arg "Схрон в разрушенном здании напротив бара. На втором этаже вверх по лестнице."] arg
+			[vec3(3390.30,3649.57,27.7) arg 332 arg "Схрон в разрушенном здании напротив здания ополчения."] arg
+			[vec3(3430.07,3677.04,29.88) arg 7 arg "Схрон в разрушенном здании напротив лекарской. На втором этаже."]
+		];
+		_stashPoints = array_shuffle(_stashPoints);
+
+		private _banditMainPoint = _stashPoints deleteAt 0;
+		private _barmenPoint = _stashPoints deleteAt 0;
+		_banditMainPoint params ["_banditMainPos","_banditMainDir","_banditMainText"];
+		_barmenPoint params ["_barmenPos","_barmenDir","_barmenText"];
+
+		private _banditMainStash = ["RoofStash_SaloonV2" arg _banditMainPos arg _banditMainDir arg false] call createStructure;
+		private _barmenStash = ["RoofStash_SaloonV2" arg _barmenPos arg _barmenDir arg false] call createStructure;
+		setSelf(banditMainStash,_banditMainStash);
+		setSelf(barmenStash,_barmenStash);
+		setSelf(banditMainClueText,_banditMainText);
+		setSelf(barmenClueText,_barmenText);
+
+		if !isNullReference(_banditMainStash) then {
+			setVar(_banditMainStash,name,"Деревянная коробка");
+			setVar(_banditMainStash,desc,"Крупная и пахнет странно");
+		};
+		if !isNullReference(_barmenStash) then {
+			setVar(_barmenStash,name,"Деревянная коробка");
+			setVar(_barmenStash,desc,"Крупная и пахнет странно");
+		};
+
+		if !isNullReference(_banditMainMob) then {
+			private _msgBanditMain = format[
+				"<t color='#FFB347'>За прошлую смену группировка задолжала %1 звяков ополченцам за крышу. Уже в эту смену ополченцы будут разыскивать нас и любой ценой добьются своего, ведь нам не раз удавалось с ними 'договориться' и избежать ответственности за все прошлые проступки... Долговой схрон: %2. Нужно где-то раздобыть звяки и отнести в положенное место. Ведь мы хотим дальше заниматься вседозволенным и прикрываться законом.</t>",
+				_debtValue,
+				_banditMainText
+			];
+			callFuncParams(_banditMainMob,addFirstJoinMessage,_msgBanditMain);
+		};
+		if !isNullReference(_barmenMob) then {
+			private _msgBarmen = format[
+				"<t color='#FFB347'>За прошлую смену бар 'Дыра' задолжал %1 звяков ополченцам за крышу. Уже в эту смену ополченцы придут в бар и любой ценой добьются своего, ведь нам не раз удавалось с ними 'договориться' и избежать ответственности. Долговой схрон: %2. Нужно где-то раздобыть звяки и отнести в положенное место. Иначе как мы будем продолжать работу, ведь ополченцы должны прийти уже в эту смену и поинтересоваться откуда у нас новые партии алкоголя и где лицензия на его продажу?</t>",
+				_debtValue,
+				_barmenText
+			];
+			callFuncParams(_barmenMob,addFirstJoinMessage,_msgBarmen);
+		};
+
+	};
+
+	getter_func(getDesc,"Пора платить по счетам.");
+
+	func(getFinishDesc)
+	{
+		objParams_1(_result);
+		if (_result == 1) exitWith {"Пахан пережил разборку. Барник погиб, и теперь весь Злачник будет жить по воле 'Руки'."};
+		if (_result == 2) exitWith {"Барник пережил разборку. Пахан погиб и его место освободилось - надолго ли?"};
+		if (_result == 3) exitWith {"Ополченцы закрыли Барника в клетке. Пахан выстоял и теперь весь Злачник будет жить по воле 'Руки'."};
+		if (_result == 4) exitWith {"Ополченцы закрыли Пахана в клетке. Барник выстоял и его бар ждет лучшие времена."};
+		if (_result == -1) exitWith {"Начальник ополчения мёртв, платить крышу больше некому. В Злачнике начинается новый порядок."};
+		if (_result == -2) exitWith {"Удивительно спокойная и тихая смена в злачнике."};
+		if (_result == -3) exitWith {"Пахан и Барник мертвы. Ополченцы не получили звяки."};
+		"Сегодня не произошло ничего интересного...";
+	};
+
+	func(checkFinish)
+	{
+		objParams();
+		private _finishCode = getSelf(finishCode);
+		if (_finishCode != 0) exitWith {_finishCode};
+
+		private _banditMainMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBanditMainSaloon");
+		private _barmenMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBarmenSaloon");
+
+		private _banditMainDead = !isNullReference(_banditMainMob) && {getVar(_banditMainMob,isDead)};
+		private _barmenDead = !isNullReference(_barmenMob) && {getVar(_barmenMob,isDead)};
+		if (_banditMainDead && _barmenDead) exitWith {-3};
+		if (_barmenDead) exitWith {1};
+		if (_banditMainDead) exitWith {2};
+
+		if (!isNullReference(_barmenMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_barmenMob)}) exitWith {3};
+		if (!isNullReference(_banditMainMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_banditMainMob)}) exitWith {4};
+
+		if (gm_roundDuration >= getVar(gm_currentMode,duration)) exitWith {-2};
+		0
+	};
+
+	func(requestFinish)
+	{
+		objParams_1(_finishResult);
+		private _currentFinishCode = getSelf(finishCode);
+		if (_currentFinishCode != 0 && {_finishResult != -3}) exitWith {};
+		setSelf(finishCode,_finishResult);
+	};
+endclass
+
+	class(RoofStash_SaloonV2) extends(SquareWoodenBox)
+		var(name,"Деревянная коробка");
+		var(desc,"Крупная и пахнет странно");
+		getter_func(isMovable,true);
+	endclass
 
 
 class(Saloon_Task_PortfelV2) extends(Saloon_Task_BaseV2)
