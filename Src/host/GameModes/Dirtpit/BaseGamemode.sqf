@@ -583,6 +583,7 @@ endclass
 class(GMStationIdeologyCavecity) extends(GMStationIdeology)
 	var(name,"Пещероград");
 	var(desc,"Община в пещерах");
+	getter_func(canVisible,false);
 
 	func(onStarted)
 	{
