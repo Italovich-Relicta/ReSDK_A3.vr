@@ -927,26 +927,6 @@ class(GMSaloonV2) extends(GMBase)
 		_total
 	};
 
-	func(getRoofRoleMob)
-	{
-		objParams_1(_roleName);
-		private _roleObj = _roleName call gm_getRoleObject;
-		private _mobList = getVar(_roleObj,basicMobs);
-		private _roleMob = nullPtr;
-		if (count _mobList > 0) then {
-			_roleMob = _mobList select 0;
-		};
-		if !isNullReference(_roleMob) exitWith {_roleMob};
-
-		{
-			private _linkedMob = _x getVariable ["link" arg nullPtr];
-			if (!isNullReference(_linkedMob) && {equals(getVar(_linkedMob,basicRole),_roleObj)}) exitWith {
-				_roleMob = _linkedMob;
-			};
-		} foreach cm_allInGameMobs;
-		_roleMob
-	};
-
 	func(isMobInSBSCageArea)
 	{
 		objParams_1(_mob);
@@ -1038,10 +1018,8 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 	{
 		objParams();
 
-		private _banditMainMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBanditMainSaloon");
-		private _barmenMob = callFuncParams(gm_currentMode,getRoofRoleMob,"RBarmenSaloon");
-		setSelf(banditMainMob,_banditMainMob);
-		setSelf(barmenMob,_barmenMob);
+		private _banditMainMob = getSelf(banditMainMob);
+		private _barmenMob = getSelf(barmenMob);
 
 		private _totalValue = callFunc(gm_currentMode,collectRoofStartMoneyValue);
 		private _debtValue = floor(_totalValue * 0.4);

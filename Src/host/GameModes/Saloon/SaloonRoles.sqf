@@ -68,6 +68,15 @@ class(RBarmenSaloon) extends(BasicRoleSaloon)
 		private _keyOwn = ["bar" arg "barsuper" arg "barowner"];
 		regKeyInUniform(_cloth,_keyOwn,"Ключ от Дыры");
 	};
+
+	func(onAssigned)
+	{
+		objParams_2(_mob,_usr);
+		super();
+		if isTypeOf(getVar(gm_currentMode,task),Saloon_Task_RoofV2) then {
+			setVar(getVar(gm_currentMode,task),barmenMob,_mob);
+		};
+	};
 endclass
 
 
@@ -457,6 +466,9 @@ class(RBanditMainSaloon) extends(BasicRoleSaloon)
 		super();
 		private _mes = format["<t size='1.4' color='#FF7400' font='Ringbear'>%1</t>",callFunc(getVar(gm_currentMode,task),getDesc)];
 		callFuncParams(_mob,addFirstJoinMessage,_mes);
+		if isTypeOf(getVar(gm_currentMode,task),Saloon_Task_RoofV2) then {
+			setVar(getVar(gm_currentMode,task),banditMainMob,_mob);
+		};
 		modVar(gm_currentMode,countAliveBandits, + 1);
 		
 		getVar(gm_currentMode,allAliveBandits) pushBack _mob;
