@@ -276,7 +276,7 @@ Replaced value:
 ```sqf
 if (cmdname in cm_commands_map) exitWith {errorformat("Duplicate command %1 (%3 at %2)",cmdname arg __LINE__ arg __FILE__); ["Duplicate command %1 (%3 at %2)",cmdname arg __LINE__ arg __FILE__] call logCritical; appExit(APPEXIT_REASON_DOUBLEDEF)}
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 70](../../../Src/host/ClientManager/CommandsExec.sqf#L70)
+File: [host\ClientManager\CommandsExec.sqf at line 72](../../../Src/host/ClientManager/CommandsExec.sqf#L72)
 ## addCommand(name,owners)
 
 Type: constant
@@ -289,7 +289,7 @@ Replaced value:
 ```sqf
 _cm_map_dataCode = [[owners],""]; __validate_cmd(name); cm_commands_map set [name,_cm_map_dataCode]; _cm_map_dataCode pushBack
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 71](../../../Src/host/ClientManager/CommandsExec.sqf#L71)
+File: [host\ClientManager\CommandsExec.sqf at line 73](../../../Src/host/ClientManager/CommandsExec.sqf#L73)
 ## addCommandWithDescription(name,owners,desc)
 
 Type: constant
@@ -303,7 +303,7 @@ Replaced value:
 ```sqf
 _cm_map_dataCode = [[owners],desc]; __validate_cmd(name); cm_commands_map set [name,_cm_map_dataCode]; _cm_map_dataCode pushBack
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 72](../../../Src/host/ClientManager/CommandsExec.sqf#L72)
+File: [host\ClientManager\CommandsExec.sqf at line 74](../../../Src/host/ClientManager/CommandsExec.sqf#L74)
 ## IS_LOCAL_COMMAND()
 
 Type: constant
@@ -315,7 +315,7 @@ Replaced value:
 ```sqf
 rpcSendToClient(_owner,"onLocalCommandCalled",[_command arg _arguments])
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 73](../../../Src/host/ClientManager/CommandsExec.sqf#L73)
+File: [host\ClientManager\CommandsExec.sqf at line 75](../../../Src/host/ClientManager/CommandsExec.sqf#L75)
 ## caller
 
 Type: constant
@@ -327,7 +327,7 @@ Replaced value:
 ```sqf
 _owner
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 74](../../../Src/host/ClientManager/CommandsExec.sqf#L74)
+File: [host\ClientManager\CommandsExec.sqf at line 76](../../../Src/host/ClientManager/CommandsExec.sqf#L76)
 ## args
 
 Type: constant
@@ -339,7 +339,7 @@ Replaced value:
 ```sqf
 _arguments
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 75](../../../Src/host/ClientManager/CommandsExec.sqf#L75)
+File: [host\ClientManager\CommandsExec.sqf at line 77](../../../Src/host/ClientManager/CommandsExec.sqf#L77)
 ## checkIfMobExists()
 
 Type: constant
@@ -351,7 +351,7 @@ Replaced value:
 ```sqf
 if (!_canAccessMob) exitWith {false};
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 76](../../../Src/host/ClientManager/CommandsExec.sqf#L76)
+File: [host\ClientManager\CommandsExec.sqf at line 78](../../../Src/host/ClientManager/CommandsExec.sqf#L78)
 ## thisClient
 
 Type: constant
@@ -363,7 +363,7 @@ Replaced value:
 ```sqf
 _client
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 77](../../../Src/host/ClientManager/CommandsExec.sqf#L77)
+File: [host\ClientManager\CommandsExec.sqf at line 79](../../../Src/host/ClientManager/CommandsExec.sqf#L79)
 ## cm_commands_map
 
 Type: Variable
@@ -375,7 +375,7 @@ Initial value:
 ```sqf
 createHashMap
 ```
-File: [host\ClientManager\CommandsExec.sqf at line 68](../../../Src/host/ClientManager/CommandsExec.sqf#L68)
+File: [host\ClientManager\CommandsExec.sqf at line 70](../../../Src/host/ClientManager/CommandsExec.sqf#L70)
 ## cm_processClientCommand
 
 Type: function
