@@ -398,10 +398,10 @@ class(Torch) extends(ILightible)
 		private _skillDelta = _skill - CAUT_SKILL_REFERENCE;
 
 		// --- Боль (применяется всегда, даже при провале) ---------------------
-		if (!callFunc(_targ,isDead) && {callFunc(_targ,canFeelPain)}) then {
+		if (!getVar(_targ,isDead) && {callFunc(_targ,canFeelPain)}) then {
 			callFuncParams(_targ,playEmoteSound,"agonyscream");
 		};
-		if (!callFunc(_targ,isDead)) then {
+		if (!getVar(_targ,isDead)) then {
 			callFuncParams(_targ,addPainLevel,_bp arg CAUT_PAIN_LEVELS);
 		};
 

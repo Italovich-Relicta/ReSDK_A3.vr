@@ -426,7 +426,7 @@ region(Connect control events)
 		if (!_isSelf && {!isTypeOf(_usr,MobObserver)} && {!callSelfParams(isEmptySlot,INV_FACE)}) then {
 			private _faceItem = callSelfParams(getItemInSlot,INV_FACE);
 			if (isTypeOf(_faceItem,ItemMask) && {callFunc(_faceItem,hideIdentity)}) then {
-				_displayName = ifcheck(getVar(getSelf(gender),пол) == "м","Незнакомец","Незнакомка");
+				_displayName = ifcheck(callSelf(isMale),"Незнакомец","Незнакомка");
 			};
 		};
 		format[_rand + _postrand,_displayName] + _commonInfo + _medMes;
