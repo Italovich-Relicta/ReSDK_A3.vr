@@ -422,7 +422,14 @@ region(Connect control events)
 			];
 		};
 
-		format[_rand + _postrand,callSelfParams(getNameEx,"кто")] + _commonInfo + _medMes;
+		private _displayName = callSelfParams(getNameEx,"кто");
+		if (!_isSelf && {!isTypeOf(_usr,MobObserver)} && {!callSelfParams(isEmptySlot,INV_FACE)}) then {
+			private _faceItem = callSelfParams(getItemInSlot,INV_FACE);
+			if (isTypeOf(_faceItem,ItemMask) && {callFunc(_faceItem,hideIdentity)}) then {
+				_displayName = ifcheck(getVar(getSelf(gender),пол) == "м","Незнакомец","Незнакомка");
+			};
+		};
+		format[_rand + _postrand,_displayName] + _commonInfo + _medMes;
 	};
 	
 	func(mindSay)

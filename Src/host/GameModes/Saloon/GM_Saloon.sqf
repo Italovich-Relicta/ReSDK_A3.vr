@@ -1009,6 +1009,7 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 	var(barmenClueText,"");
 	var(militiaBriefSent,false);
 	var(finishCode,0);
+	var(cageCountdown,-1);
 
 	func(onTaskInit)
 	{
@@ -1067,6 +1068,7 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 	func(getFinishDesc)
 	{
 		objParams_1(_result);
+		if (_result == 5) exitWith {"Ополченцы закрыли и Барника, и Пахана в клетках. В Злачнике затишье."};
 		if (_result == 1) exitWith {"Пахан пережил разборку. Барник погиб, и теперь весь Злачник будет жить по воле 'Руки'."};
 		if (_result == 2) exitWith {"Барник пережил разборку. Пахан погиб и его место освободилось - надолго ли?"};
 		if (_result == 3) exitWith {"Ополченцы закрыли Барника в клетке. Пахан выстоял и теперь весь Злачник будет жить по воле 'Руки'."};
@@ -1093,8 +1095,27 @@ class(Saloon_Task_RoofV2) extends(Saloon_Task_BaseV2)
 		if (_timeGatePassed && _barmenDead) exitWith {1};
 		if (_timeGatePassed && _banditMainDead) exitWith {2};
 
-		if (!isNullReference(_barmenMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_barmenMob)}) exitWith {3};
-		if (!isNullReference(_banditMainMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_banditMainMob)}) exitWith {4};
+		private _barmenInCage = !isNullReference(_barmenMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_barmenMob)} && {!getVar(_barmenMob,isDead)};
+		private _banditInCage = !isNullReference(_banditMainMob) && {callFuncParams(gm_currentMode,isMobInSBSCageArea,_banditMainMob)} && {!getVar(_banditMainMob,isDead)};
+
+		// Запускаем таймер когда хоть кто-то оказался в клетке
+		private _countdown = getSelf(cageCountdown);
+		if ((_barmenInCage || _banditInCage) && {_countdown < 0}) then {
+			setSelf(cageCountdown, 0);
+			_countdown = 0;
+		};
+		if (_countdown >= 0) then {
+			modSelf(cageCountdown, + 1);
+		};
+		// По истечении 30 сек - фиксируем кто в клетке на этот момент
+		if (getSelf(cageCountdown) >= 30) exitWith {
+			setSelf(cageCountdown, -1);
+			private _r = 0;
+			if (_barmenInCage && _banditInCage) then {_r = 5};
+			if (_barmenInCage && !_banditInCage) then {_r = 3};
+			if (_banditInCage && !_barmenInCage) then {_r = 4};
+			_r
+		};
 
 		if (gm_roundDuration >= getVar(gm_currentMode,duration)) exitWith {-2};
 		0

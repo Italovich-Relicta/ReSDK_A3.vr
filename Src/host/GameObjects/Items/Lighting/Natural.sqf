@@ -302,7 +302,7 @@ class(Torch) extends(ILightible)
 
 		// --- Раны головы нельзя прижигать ------------------------------------
 		if (_bp == BP_INDEX_HEAD) exitWith {
-			callFuncParams(_usr,localSay,"Хорошая ли это идея?" arg "error");
+			callFuncParams(_usr,localSay,pick["Не получится прижечь рану на голове!" arg "На голове прижечь не получится." arg "Как ты на голове будешь ему прижигать!?" arg "Голову нельзя прижигать — слишком опасно." arg "Голову точно нельзя." arg "Прижечь рану на голове? Это его убьёт!"] arg "error");
 		};
 
 		// --- Определяем, есть ли что прижигать --------------------------------
@@ -398,10 +398,12 @@ class(Torch) extends(ILightible)
 		private _skillDelta = _skill - CAUT_SKILL_REFERENCE;
 
 		// --- Боль (применяется всегда, даже при провале) ---------------------
-		if callFunc(_targ,canFeelPain) then {
+		if (!callFunc(_targ,isDead) && {callFunc(_targ,canFeelPain)}) then {
 			callFuncParams(_targ,playEmoteSound,"agonyscream");
 		};
-		callFuncParams(_targ,addPainLevel,_bp arg CAUT_PAIN_LEVELS);
+		if (!callFunc(_targ,isDead)) then {
+			callFuncParams(_targ,addPainLevel,_bp arg CAUT_PAIN_LEVELS);
+		};
 
 		// --- Бросок на провал (низкий шанс, зависит от навыка) ---------------
 		private _failChance = CAUT_FAIL_BASE;
@@ -446,7 +448,6 @@ class(Torch) extends(ILightible)
 		_deathChance = (_deathChance max 0.01) min CAUT_DEATH_CAP;
 
 		if ((random 1) < _deathChance) exitWith {
-			callFuncParams(_targ,meSay,"умирает от болевого шока.");
 			callFuncParams(_targ,Die,di_partDamage);
 		};
 
