@@ -40,6 +40,9 @@ class(ItemMask) extends(Cloth)
 	//есть ли доступ ко рту
 	//todo переработать на dr covered FACE
 	getter_func(canAccessToMouth,false);
+
+	//скрывает ли маска личность (лицо) носителя при инспекте
+	getter_func(hideIdentity,true);
 	
 endclass
 
@@ -154,6 +157,7 @@ endclass
 class(DustGlasses) extends(ItemMask)
 	var(name,"Пылевые очки");
 	var(armaClass,"goggles_wastelandclothing03");
+	getter_func(hideIdentity,false);
 endclass
 
 class(RespiratorMaskTubes) extends(RespiratorMask)
@@ -171,6 +175,7 @@ class(SlaveCollar) extends(ItemMask)
 	var(name,"Рабский ошейник");
 	var(material,"MatMetal");
 	var(armaClass,"slavecollar_mask");
+	getter_func(hideIdentity,false);
 endclass
 
 class(FaceShieldSpartan) extends(ItemMask)
