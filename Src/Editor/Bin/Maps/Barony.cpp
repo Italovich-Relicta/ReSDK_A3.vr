@@ -8,18 +8,18 @@ class EditorData
 	toggles=10;
 	class ItemIDProvider
 	{
-		nextID=10492;
+		nextID=10493;
 	};
 	class LayerIndexProvider
 	{
-		nextID=1760;
+		nextID=1814;
 	};
 	class Camera
 	{
-		pos[]={3850.9146,81.923225,4129.71};
-		dir[]={-0.35179535,-0.92026037,0.17208347};
-		up[]={-0.82652676,0.39108136,0.40430114};
-		aside[]={0.43938041,-9.2046103e-06,0.89825577};
+		pos[]={3845.9741,77.415085,4127.1396};
+		dir[]={-0.043069765,-0.43069881,0.90160209};
+		up[]={-0.020566812,0.90209699,0.43047389};
+		aside[]={0.99882132,-2.3285102e-06,0.04772554};
 	};
 };
 binarizationWanted=0;
@@ -6490,7 +6490,7 @@ class Mission
 					name="Вход в замок и грязюка рядом";
 					class Entities
 					{
-						items=178;
+						items=179;
 						class Item0
 						{
 							dataType="Object";
@@ -9640,9 +9640,27 @@ class Mission
 							type="Land_TimberLog_05_F";
 							atlOffset=0.4524231;
 						};
+						class Item178
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={3842.8684,68.272545,4119.4961};
+								angles[]={0,4.6943078,-0};
+							};
+							side="Empty";
+							flags=1;
+							class Attributes
+							{
+								init="{createHashMapFromArray[[""customProps"",createHashMapFromArray[]],[""class"",""SmallDirtGrey""]]}";
+							};
+							id=10492;
+							type="gryazyuka5";
+							atlOffset=0.31715393;
+						};
 					};
 					id=2908;
-					atlOffset=0.080474854;
+					atlOffset=0.044487;
 				};
 				class Item1
 				{
@@ -30312,7 +30330,7 @@ class Mission
 							};
 							id=4592;
 							type="Land_WoodenShelter_01_F";
-							atlOffset=0.17666626;
+							atlOffset=0.10905457;
 						};
 						class Item16
 						{
@@ -30341,14 +30359,14 @@ class Mission
 								angles[]={0,4.7123909,0};
 							};
 							side="Empty";
-							flags=1;
+							flags=5;
 							class Attributes
 							{
 								init="{createHashMapFromArray[[""customProps"",createHashMapFromArray[]],[""class"",""TinFence""]]}";
 							};
 							id=4594;
 							type="Land_TinWall_01_m_4m_v1_F";
-							atlOffset=0.40631104;
+							atlOffset=0.14234161;
 						};
 						class Item18
 						{
@@ -33869,13 +33887,14 @@ class Mission
 								angles[]={6.2803736,6.0213804,0.0064931358};
 							};
 							side="Empty";
+							flags=4;
 							class Attributes
 							{
 								init="{createHashMapFromArray[[""customProps"",createHashMapFromArray[]],[""class"",""SmallStoneRoad""]]}";
 							};
 							id=3159;
 							type="Land_GardenPavement_02_F";
-							atlOffset=0.42003632;
+							atlOffset=0.05267334;
 						};
 						class Item13
 						{
@@ -45376,7 +45395,7 @@ class Mission
 											class PositionInfo
 											{
 												position[]={3805.9021,70.646851,4136.1743};
-												angles[]={0,0.23777425,-0};
+												angles[]={0,0.23777425,0};
 											};
 											side="Empty";
 											flags=4;
@@ -45412,7 +45431,7 @@ class Mission
 											class PositionInfo
 											{
 												position[]={3806.0247,70.634422,4136.1104};
-												angles[]={0,1.1568108,-0};
+												angles[]={0,1.1568108,0};
 											};
 											side="Empty";
 											class Attributes
@@ -50101,7 +50120,7 @@ class Mission
 							};
 							id=9765;
 							type="Land_PillboxWall_01_3m_F";
-							atlOffset=0.14690399;
+							atlOffset=0.088218689;
 						};
 						class Item16
 						{
@@ -50142,7 +50161,7 @@ class Mission
 							};
 							id=10002;
 							type="S_Clothes";
-							atlOffset=0.94774628;
+							atlOffset=0.75138855;
 						};
 						class Item19
 						{

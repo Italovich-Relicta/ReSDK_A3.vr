@@ -536,6 +536,7 @@ _3850_611334131_9096765_05642 = ['IStruct',[3850.61,4131.91,70.0564,true],179.48
 ['WoodPole2',[3852.06,4135.71,70.5179,true],[0,4.88762e-07,1],[0,-1,4.88762e-07]] call InitStruct; 
 ['SteelThinWallMedium',[3852.01,4135.96,62.752],270,[0,0,1]] call InitStruct; 
 ['WoodPole2',[3852.07,4134.44,69.2971,true],180,[0,-1.75635e-06,-1]] call InitStruct; 
+['SmallDirtGrey',[3842.87,4119.5,63.4823],268.964,[0,0,1]] call InitStruct; 
 ['BigPartiallyDestroyedLightBrickBuilding',[3895.9,4146.61,63.9026],244.46,[0,0,1]] call InitDecor; 
 ['StoneArch',[3862.25,4134.25,71.4877,true],270,[0.00692964,0.00566267,0.99996]] call InitDecor; 
 ['MediumJunkShed',[3886.44,4143.54,63.6613],0,[0,0,1]] call InitStruct; 
