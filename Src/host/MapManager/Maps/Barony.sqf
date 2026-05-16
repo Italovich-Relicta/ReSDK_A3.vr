@@ -32,7 +32,7 @@ _3830_942384137_6845765_61369 = ['SpawnPoint',[3830.94,4137.68,65.6137],0,[0,0,1
 _3838_411384147_0307663_73769 = ['SpawnPoint',[3838.41,4147.03,63.7377],0,[0,0,1]] call InitStruct; 
 _3830_000004162_2500063_50000 = ['SpawnPoint',[3830,4162.25,63.5],0,[0,0,1]] call InitStruct; 
 _3812_671144165_7939563_53010 = ['SpawnPoint',[3812.67,4165.79,63.5301],0,[0,0,1]] call InitStruct; 
-_3803_478524119_3828165_55286 = ['SpawnPoint',[3803.48,4119.38,65.5529],90,[0,0,1]] call InitStruct; 
+_3803_456794118_9233465_55286 = ['SpawnPoint',[3803.46,4118.92,65.5529],90,[0,0,1]] call InitStruct; 
 _3808_610844096_3193463_66371 = ['SpawnPoint',[3808.61,4096.32,63.6637],210,[0,0,1]] call InitStruct; 
 _3854_862304127_1284263_89799 = ['SpawnPoint',[3854.86,4127.13,63.898],90,[0,0,1]] call InitStruct; 
 _3895_725594130_2802763_91912 = ['SpawnPoint',[3895.73,4130.28,63.9191],150,[0,0,1]] call InitStruct; 
@@ -44,6 +44,7 @@ _3751_891114127_2568456_27670 = ['SpawnPoint',[3751.89,4127.26,56.2767],0,[0,0,1
 _3854_858894128_7978563_90982 = ['SpawnPoint',[3854.86,4128.8,63.9098],270,[0,0,1]] call InitStruct; 
 _3854_237554123_0068463_84682 = ['SpawnPoint',[3854.24,4123.01,63.8468],20.3661,[0,0,1]] call InitStruct; 
 _3843_452884122_0922963_86934 = ['SpawnPoint',[3843.45,4122.09,63.8693],0,[0,0,1]] call InitStruct; 
+_3803_385254120_1020565_57221 = ['SpawnPoint',[3803.39,4120.1,65.5722],90,[0,0,1]] call InitStruct; 
 ['BigDarkRock',[3906.05,4135.99,107.157,true],[2.46646e-14,-1,-5.6426e-07],[-1,0,-4.37114e-08]] call InitDecor; 
 ['BigDarkRock',[3910.94,4128.53,104.027,true],[4.55078e-14,-1,-1.0411e-06],[-1,0,-4.37114e-08]] call InitDecor; 
 ['BigDarkRock',[3801.33,4167.94,101.787,true],[0.250001,0.965926,0.0669865],[0.933012,-0.25882,0.25]] call InitDecor; 
@@ -1367,6 +1368,7 @@ _3825_385744158_7583065_78460 = ['IStruct',[3825.39,4158.76,70.7862,true],[-0.00
 ['HospitalBench',[3828.36,4157.87,63.4712],183.817,[0,0,1]] call InitStruct; 
 ['SmallWhiteConcretePillar',[3825.7,4158.06,63.1192],0,[0,0,1]] call InitStruct; 
 _3825_740484159_0127063_36475 = ['WoodenDoor',[3825.74,4159.01,63.3648],90,[0,0,1], {_thisObj setvariable ['preinit@__keytypesstr',"sad, baron, general"]; _thisObj call (_thisObj getvariable 'proto' getvariable '__handlePreInitVars__');}] call InitStruct; 
+['SmallFenceMadeOfSticks',[3826.7,4161.58,69.1112,true],[-0.999999,0.00126344,-2.87285e-06],[0.00126344,0.999999,7.54978e-08]] call InitStruct; 
 ['StumpChair',[3818.92,4167.37,68.7364,true],19.9961,[-0.00675225,0.000734375,0.999977]] call InitItem; 
 ['DirtCraterLong',[3791.88,4173.5,68.4392,true],270,[0.00103456,-0.00699878,0.999975]] call InitStruct; 
 ['FarmGarden',[3829.53,4153.05,68.8727,true],[-0.965595,0.245544,-0.0856453],[-0.0233988,0.245969,0.968995]] call InitStruct; 
@@ -3015,8 +3017,8 @@ if (!isNil'_3830_000004162_2500063_50000') then {
 if (!isNil'_3812_671144165_7939563_53010') then {
 	_3812_671144165_7939563_53010 setvariable ['spawnpointname',"RPodsadovnikBarony"];
 };
-if (!isNil'_3803_478524119_3828165_55286') then {
-	_3803_478524119_3828165_55286 setvariable ['spawnpointname',"RKukhmasterBarony"];
+if (!isNil'_3803_456794118_9233465_55286') then {
+	_3803_456794118_9233465_55286 setvariable ['spawnpointname',"RKukhmasterBarony"];
 };
 if (!isNil'_3808_610844096_3193463_66371') then {
 	_3808_610844096_3193463_66371 setvariable ['spawnpointname',"RGriblanBarony"];
@@ -3050,6 +3052,9 @@ if (!isNil'_3854_237554123_0068463_84682') then {
 };
 if (!isNil'_3843_452884122_0922963_86934') then {
 	_3843_452884122_0922963_86934 setvariable ['spawnpointname',"RKomandirSluzhivyyBarony"];
+};
+if (!isNil'_3803_385254120_1020565_57221') then {
+	_3803_385254120_1020565_57221 setvariable ['spawnpointname',"RPovareshkaBarony"];
 };
 if (!isNil'_3790_398194131_8408277_01269') then {
 	_3790_398194131_8408277_01269 setvariable ['destination',"ExitTunnel"];
